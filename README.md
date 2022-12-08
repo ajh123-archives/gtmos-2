@@ -1,17 +1,18 @@
-# duckOS
-### A hobby operating system
+# GTMOS
+### A hobby operating system based of [duckOS](https://github.com/byteduck/duckOS/)
 
 A hobby UNIX-like OS with a graphical window manager for x86 computers.
+The business version of [duckOS](https://github.com/byteduck/duckOS/)?
 
-![Toolchain](https://github.com/byteduck/duckOS/workflows/Toolchain/badge.svg)
-![Kernel](https://github.com/byteduck/duckOS/workflows/Kernel/badge.svg)
-![duckOS](https://github.com/byteduck/duckOS/workflows/duckOS/badge.svg)
+![Toolchain](https://github.com/byteduck/gtmos/workflows/Toolchain/badge.svg)
+![Kernel](https://github.com/byteduck/gtmos/workflows/Kernel/badge.svg)
+![duckOS](https://github.com/byteduck/gtmos/workflows/duckOS/badge.svg)
 
-### Try duckOS in your browser!
+### Try our parent OS, duckOS, in your browser!
 Thanks to the [v86 project](https://github.com/copy/v86) by [copy](https://copy.sh), you can now try a (slow) version of duckOS in your browser! [Try it here!](https://aaron.sonin.me/duckOS)
 
 ### Screenshots
-![Screenshot](docs/screenshot-2022-11-08.png)
+![Screenshot](docs/screenshot-2022-12-08.png)
 
 ### What's working
 - Booting off of the primary master IDE (PATA) hard drive on both emulators and real hardware (tested on a Dell Optiplex 320 with a Pentium D)
@@ -120,6 +121,7 @@ Ports can be installed by running [ports.sh](ports/ports.sh) supplied with the d
 - See [INSTRUCTIONS.md](INSTRUCTIONS.md) for instructions.
 
 ### Credits
+- [duckOS](https://github.com/byteduck/duckOS) for the starting grounds of this OS.
 - [blanham's mirror of liballoc 1.1](https://github.com/blanham/liballoc) for the kernel heap allocation implementation (it's open domain, so if you want to use it, I highly recommend it)
 - [SerenityOS](http://serenityos.org) for a lot of inspiration
 - [Gohufont](https://font.gohu.org/) for the font (licensed under [WTFPL](http://www.wtfpl.net/about/))

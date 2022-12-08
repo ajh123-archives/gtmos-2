@@ -1,4 +1,4 @@
-# duckOS Build / Run instructions
+# GTMOS Build / Run instructions
 
 ## Prerequisites
 

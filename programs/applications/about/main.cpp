@@ -28,7 +28,7 @@ int main(int argc, char** argv, char** envp) {
 	UI::init(argv, envp);
 
 	auto window = UI::Window::make();
-	window->set_title("About duckOS");
+	window->set_title("About GTMOS");
 
 	auto version_file = Duck::FileInputStream("/etc/ver");
 	std::string ver;
@@ -36,12 +36,12 @@ int main(int argc, char** argv, char** envp) {
 
 	auto text_layout = UI::FlexLayout::make(UI::FlexLayout::VERTICAL);
 
-	auto title_label = UI::Label::make("duckOS");
+	auto title_label = UI::Label::make("GTMOS");
 	title_label->set_font(UI::pond_context->get_font("gohu-14"));
 	title_label->set_sizing_mode(UI::PREFERRED);
 	text_layout->add_child(title_label);
 
-	auto img = UI::icon("/duck");
+	auto img = UI::icon("/gtmos");
 	auto duck = UI::Image::make(img, UI::Image::FIT);
 	duck->set_sizing_mode(UI::FILL);
 	text_layout->add_child(duck);
@@ -50,6 +50,11 @@ int main(int argc, char** argv, char** envp) {
 	ver_label->set_color(RGB(150, 150, 150));
 	ver_label->set_sizing_mode(UI::PREFERRED);
 	text_layout->add_child(ver_label);
+
+	auto credits_label = UI::Label::make("Based of duckOS by byteduck.");
+	credits_label->set_color(RGB(150, 150, 150));
+	credits_label->set_sizing_mode(UI::PREFERRED);
+	text_layout->add_child(credits_label);
 
 	window->set_contents(UI::Cell::make(text_layout));
 	window->resize({200, 150});
