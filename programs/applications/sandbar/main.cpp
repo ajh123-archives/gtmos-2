@@ -77,8 +77,8 @@ int main(int argc, char** argv, char** envp) {
 		app_list_layout->add_child(btn);
 	}
 
-	//Make duck.icon button
-	auto app_button = UI::Button::make(UI::icon("/duck"));
+	//Make gtmos.icon button
+	auto app_button = UI::Button::make(UI::icon("/gtmos"));
 	app_button->set_sizing_mode(UI::PREFERRED);
 	app_button->on_pressed = [&] {
 		if(shown) {
