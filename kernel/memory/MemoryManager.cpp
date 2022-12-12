@@ -25,6 +25,7 @@
 #include "MemoryManager.h"
 #include <kernel/multiboot.h>
 #include "AnonymousVMObject.h"
+#include <kernel/device/DiskDevice.h>
 #include <kernel/tasking/Thread.h>
 #include <kernel/tasking/TaskManager.h>
 #include <kernel/kstd/KLog.h>
@@ -191,11 +192,12 @@ void MemoryManager::parse_mboot_memory_map(struct multiboot_info* header, struct
 				size_pagealigned -= PAGE_SIZE;
 		}
 
-		if(!size_pagealigned) {
+		if(size_pagealigned / PAGE_SIZE < 2) {
 			KLog::dbg("Memory", "Ignoring too-small memory region at 0x%x", addr);
 			return;
 		}
 
+		KLog::dbg("Memory", "Making memory region at page 0x%x of 0x%x pages (%s, %s)", addr_pagealigned / PAGE_SIZE, size_pagealigned / PAGE_SIZE, used ? "Used" : "Unused", reserved ? "Reserved" : "Unreserved");
 		auto region = new PhysicalRegion(
 			addr_pagealigned / PAGE_SIZE,
 			size_pagealigned / PAGE_SIZE,
@@ -284,10 +286,19 @@ ResultRet<PageIndex> MemoryManager::alloc_physical_page() const {
 		}
 	}
 
-	return Result(ENOMEM);
+	// We couldn't allocate any physical pages. Try freeing four for good measure.
+	if(DiskDevice::free_pages(4) >= 1)
+		return alloc_physical_page();
+
+	// No more pages. This is bad.
+	PANIC("NO_MEM", "The system ran out of physical memory.");
 }
 
 ResultRet<kstd::vector<PageIndex>> MemoryManager::alloc_physical_pages(size_t num_pages) const {
+	// If we already know we won't have enough free memory, try freeing twice as many up in the disk cache first
+	if((usable_bytes_ram - used_pmem()) / PAGE_SIZE < num_pages)
+		DiskDevice::free_pages(num_pages * 2);
+
 	auto new_pages = kstd::vector<PageIndex>();
 	new_pages.reserve(num_pages);
 	while(num_pages--)
